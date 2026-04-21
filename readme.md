@@ -3,7 +3,7 @@
 
 
 <p align="center">
-  Xiangyang Luo<sup>1,2*</sup>, Xiaozhe Xin<sup>2*✉</sup>, Tao Feng<sup>1</sup>, Xu Guo<sup>1</sup>, Meiguang Jin<sup>2</sup>, Junfeng Ma<sup>2</sup>
+  <a href="https://luoxyhappy.github.io/">Xiangyang Luo</a><sup>1,2*</sup>, Xiaozhe Xin<sup>2*✉</sup>, Tao Feng<sup>1</sup>, <a href="https://guoxu1233.github.io/homepage/">Xu Guo</a><sup>1</sup>, Meiguang Jin<sup>2</sup>, Junfeng Ma<sup>2</sup>
   <br>
   <sup>1</sup> Tsinghua University &nbsp; <sup>2</sup> Alibaba Group
   <br>
@@ -18,7 +18,7 @@
 
 ## Demo
 <p align="center">
-  <video src="https://github.com/user-attachments/assets/5e5f3e90-8d89-4e05-849d-31bd29113e07" controls width="100%"></video>
+  <video src="https://github.com/user-attachments/assets/fe59a768-38e8-4403-bd13-155662c628d6" controls width="100%"></video>
 </p>
 
 ## Roadmap
@@ -50,7 +50,7 @@ Key contributions:
 ## Citation
 
 ```bibtex
-soon
+soooooon
 ```
 
 <!-- ## Acknowledgments
