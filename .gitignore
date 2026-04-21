@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+.qoder/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+venv/
+.venv/
+
+# Logs & Media (local only)
+*.log
+*.wav
+
+# Project-specific
+models/
+exp/
+output_videos/
+outputs/
+
+# Code (not yet released)
+*.py
+*.sh
+*.json
+*.txt
+diffsynth/
+examples/
+README_full.md
+
+# Large original assets (compressed versions tracked)
+assets/*.png
+assets/*.mp4
+assets/*.gif
