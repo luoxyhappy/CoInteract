@@ -1,0 +1,20 @@
+{
+    "train_batch_size": "auto",  
+    "train_micro_batch_size_per_gpu": 1, 
+    "bf16": {
+        "enabled": true
+    },
+    "gradient_accumulation_steps": 1,
+    "gradient_clipping": 1.0,
+    "zero_optimization": {
+        "stage": 2,
+        "overlap_comm": true,
+        "offload_param": {
+            "device": "cpu"
+        },
+        "offload_optimizer": {
+            "device": "none", 
+            "nvme_path": null
+        }
+    }
+}

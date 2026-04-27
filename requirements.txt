@@ -1,0 +1,31 @@
+# Core
+torch>=2.1.0
+torchvision
+transformers>=4.40.0
+safetensors
+einops
+sentencepiece
+protobuf
+
+# Training
+deepspeed>=0.14.0
+accelerate>=0.34.0
+peft>=0.10.0
+lightning
+
+# Data & Inference
+numpy>=1.26.0,<2.0
+pandas>=2.1.0
+imageio
+imageio[ffmpeg]
+librosa
+Pillow
+ftfy
+regex
+wcwidth
+
+# Utilities
+pydantic>=2.0
+pynvml
+huggingface_hub
+modelscope

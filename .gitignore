@@ -21,26 +21,19 @@ Thumbs.db
 venv/
 .venv/
 
-# Logs & Media (local only)
+# Logs & local media (not committed)
 *.log
-*.wav
 
-# Project-specific
+# Model weights / downloaded assets / generated outputs (local only)
 models/
 exp/
-output_videos/
 outputs/
 
-# Code (not yet released)
-*.py
-*.sh
-*.json
-*.txt
-diffsynth/
-examples/
-README_full.md
+# Local-only scripts (not part of the release)
+train.sh
+infer_2frame.py
 
-# Large original assets (compressed versions tracked)
+# Large original assets (compressed versions are tracked instead)
 assets/*.png
 assets/*.mp4
 assets/*.gif
