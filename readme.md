@@ -11,10 +11,10 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2604.19636"><img src="https://img.shields.io/badge/arXiv-Paper-red"></a>
   <a href="https://huggingface.co/georgexin/cointeract"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Model-yellow"></a>
-  <a href="https://xinxiaozhe12345.github.io/CoInteract_Project/"><img src="https://img.shields.io/badge/Project-Page-blue"></a>
+  <a href="https://xinxiaozhe12345.github.io/CoInteract_Project/"><img src="https://img.shields.io/badge/Project-Page-lue"></a>
 </p>
 
-## Demo
+## Demob
 <p align="center">
   <video src="https://github.com/user-attachments/assets/fe59a768-38e8-4403-bd13-155662c628d6" controls width="80%"></video>
 </p>

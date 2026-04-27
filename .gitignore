@@ -24,10 +24,10 @@ venv/
 # Logs & local media (not committed)
 *.log
 
-# Model weights / downloaded assets / generated outputs (local only)
-models/
-exp/
-outputs/
+# Model weights / downloaded assets / generated outputs (local only, repo root only)
+/models/
+/exp/
+/outputs/
 
 # Local-only scripts (not part of the release)
 train.sh
