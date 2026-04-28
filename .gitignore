@@ -33,6 +33,10 @@ venv/
 train.sh
 infer_2frame.py
 
+# Work-in-progress training docs & demo dataset (kept local until ready)
+/examples/wanvideo/model_training/README.md
+/examples/wanvideo/model_training/demodataset/
+
 # Large original assets (compressed versions are tracked instead)
 assets/*.png
 assets/*.mp4

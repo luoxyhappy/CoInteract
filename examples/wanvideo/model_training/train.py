@@ -13,7 +13,7 @@ Usage:
         --model_paths '<json_list_of_model_paths>' \
         --use_moe --expert_hidden_dim 1280 \
         --use_audio_face_mask --audio_mask_train_source gt \
-        --use_depth_branch --depth_mutual_visible \
+        --use_hoi_branch --depth_mutual_visible \
         --dataset_metadata_path data.csv \
         --extra_inputs person_image,product_image \
         --output_path ./output
@@ -211,12 +211,24 @@ class WanTrainingModule(DiffusionTrainingModule):
             # No motion context: use person_image as first frame
             input_video[0] = person_image
 
-        # Depth video for Spatially-Structured Co-Generation
-        depth_video = data.get("depth_video", None)
+        # HOI video for Spatially-Structured Co-Generation
+        # CSV column is `hoi_video` (user-facing name); internally we still route
+        # it through the pipeline under the legacy `depth_video` key.
+        depth_video = data.get("hoi_video", None)
         if depth_video is not None and not isinstance(depth_video, float) and len(depth_video) > 0:
             pass  # Use as-is
         else:
             depth_video = None
+
+        # Pose video for pose-driven conditioning (optional).
+        # CSV empty cells are parsed as NaN (float), so explicitly filter them out.
+        pose_video = data.get("pose_video", None)
+        if pose_video is not None and not isinstance(pose_video, float) and len(pose_video) > 0:
+            # 50% dropout to support CFG-style pose guidance at inference time
+            if random.random() < 0.5:
+                pose_video = None
+        else:
+            pose_video = None
 
         inputs_shared = {
             "input_video": input_video,
@@ -226,7 +238,7 @@ class WanTrainingModule(DiffusionTrainingModule):
             "num_frames": num_frames,
             "audio_embeds": None,
             "s2v_pose_latents": None,
-            "s2v_pose_video": None,
+            "s2v_pose_video": pose_video,
             "motion_video": motion_video,
             "depth_video": depth_video,
             "start_idx": 0,
@@ -332,10 +344,10 @@ if __name__ == "__main__":
     # Define data fields to load from CSV
     data_file_keys = (
         "motion_video,input_video,audio,person_image,"
-        "product_image,face,hand_object,height,width,scale"
+        "product_image,pose_video,face,hand_object,height,width,scale"
     ).split(",")
     if args.use_depth_branch:
-        data_file_keys.append("depth_video")
+        data_file_keys.append("hoi_video")
 
     # Data loading operators for each CSV field
     special_operator_map = {
@@ -363,6 +375,12 @@ if __name__ == "__main__":
             >> LoadImage()
             >> ImageResizeAndPad(args.height, args.width, args.max_pixels, 16, 16)
         ),
+        # Optional pose skeleton video (DWPose); leave the CSV cell empty to skip.
+        "pose_video": (
+            ToAbsolutePath(args.dataset_base_path)
+            >> LoadVideoFramesOnly(args.num_frames, frame_processor=ImageCropAndResize(
+                args.height, args.width, None, 16, 16))
+        ),
         # Metadata fields (pass-through from CSV)
         "face": lambda x: x,
         "hand_object": lambda x: x,
@@ -372,7 +390,7 @@ if __name__ == "__main__":
     }
 
     if args.use_depth_branch:
-        special_operator_map["depth_video"] = (
+        special_operator_map["hoi_video"] = (
             ToAbsolutePath(args.dataset_base_path)
             >> LoadVideoFramesOnly(args.num_frames, frame_processor=ImageCropAndResize(
                 args.height, args.width, None, 16, 16))

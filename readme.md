@@ -21,7 +21,7 @@
 
 ## 🔥News
 
-- [April 27, 2025] We release the inference code and checkpoint of CoInteract.
+- [April 27, 2026] We release the inference code and checkpoint of CoInteract.
 - [April 22, 2026] We release the [Paper](https://arxiv.org/abs/2604.19636) and [Project](https://xinxiaozhe12345.github.io/CoInteract_Project/) page of CoInteract.
 
 ## 🗺️Roadmap
@@ -29,8 +29,8 @@
 | Stage | Status | Description | Date |
 |-------|--------|-------------|------|
 | 1 | ✅ | Release inference code and model weights | - |
-| 2 | 🔜 | Release training code | 2025-05-06 |
-| 3 | 📋 | Add pose control support | 2025-05-06 |
+| 2 | 🔜 | Release training code | 2026-05-06 |
+| 3 | 📋 | Add pose control support | 2026-05-06 |
 
 ## Installation
 
@@ -130,14 +130,11 @@ Key contributions:
 ## Citation
 
 ```bibtex
-@misc{luo2026cointeractphysicallyconsistenthumanobjectinteraction,
-      title={CoInteract: Physically-Consistent Human-Object Interaction Video Synthesis via Spatially-Structured Co-Generation},
-      author={Xiangyang Luo and Xiaozhe Xin and Tao Feng and Xu Guo and Meiguang Jin and Junfeng Ma},
-      year={2026},
-      eprint={2604.19636},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2604.19636},
+@article{luo2026cointeract,
+  title={CoInteract: Physically-Consistent Human-Object Interaction Video Synthesis via Spatially-Structured Co-Generation},
+  author={Luo, Xiangyang and Xin, Xiaozhe and Feng, Tao and Guo, Xu and Jin, Meiguang and Ma, Junfeng},
+  journal={arXiv preprint arXiv:2604.19636},
+  year={2026}
 }
 ```
 

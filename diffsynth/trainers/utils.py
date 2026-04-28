@@ -857,8 +857,10 @@ def wan_parser():
     # MoE FFN 相关参数
     parser.add_argument("--use_moe", default=False, action="store_true", help="Whether to enable MoE FFN for hand/face expert routing.")
     parser.add_argument("--expert_hidden_dim", type=int, default=None, help="Hidden dimension for MoE expert FFN (default: dim).")
-    # Depth Video 辅助分支参数
-    parser.add_argument("--use_depth_branch", default=False, action="store_true", help="Whether to enable Depth Video auxiliary branch for training.")
+    # HOI (Depth Video) auxiliary branch parameters
+    # Public flag: --use_hoi_branch. --use_depth_branch is kept as a legacy alias
+    # (same dest) for backward compatibility with older training scripts.
+    parser.add_argument("--use_hoi_branch", "--use_depth_branch", dest="use_depth_branch", default=False, action="store_true", help="Whether to enable the HOI (depth) auxiliary branch for Spatially-Structured Co-Generation.")
     parser.add_argument("--depth_mutual_visible", default=True, action="store_true", help="Depth visibility mode. True (default): depth and video can see each other (Version 1). Use --no_depth_mutual_visible for Version 2 where only depth can see video.")
     parser.add_argument("--no_depth_mutual_visible", dest="depth_mutual_visible", action="store_false", help="Set depth_mutual_visible to False. Version 2: only depth can see video, video cannot see depth.")
     # DeepSpeed activation checkpointing 参数
