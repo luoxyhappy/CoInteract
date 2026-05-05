@@ -21,6 +21,7 @@
 
 ## 🔥News
 
+- [May 6, 2026] We release the [training guideline](./examples/wanvideo/model_training/README.md) and **pose-driven inference** of CoInteract.
 - [April 27, 2026] We release the inference code and checkpoint of CoInteract.
 - [April 22, 2026] We release the [Paper](https://arxiv.org/abs/2604.19636) and [Project](https://xinxiaozhe12345.github.io/CoInteract_Project/) page of CoInteract.
 
@@ -29,8 +30,8 @@
 | Stage | Status | Description | Date |
 |-------|--------|-------------|------|
 | 1 | ✅ | Release inference code and model weights | - |
-| 2 | 🔜 | Release training code | 2026-05-06 |
-| 3 | 📋 | Add pose control support | 2026-05-06 |
+| 2 | ✅ | Release pose-driven checkpoint and inference | - |
+| 3 | ✅ | Release training code | - |
 
 ## Installation
 
@@ -108,6 +109,44 @@ Input CSV must contain columns `audio`, `person_image`, `prompt`. Optional colum
 We provide our generated results for the demos in [`./output_videos`](./output_videos) for reference.
 
 > **Notes.** If you want to try your own cases, we recommend using product images with a clean white background for best results, and keeping your prompt in a format consistent with the examples provided in [`./examples/demos/demos.csv`](./examples/demos/demos.csv).
+
+## Pose-Driven Inference
+
+Beyond audio-only control, CoInteract also supports **pose-driven** generation, where a pre-extracted pose skeleton video guides the full-body motion of the speaker while the audio still drives lip-sync.
+
+### 1. Download the pose checkpoint
+
+The pose-driven checkpoint lives in the **same** HuggingFace repository as the default one. 
+
+```bash
+hf download georgexin/cointeract \
+    --local-dir ./models/CoInteract
+```
+
+After downloading, you should see an additional `checkpoint_pose.safetensors` under `./models/CoInteract/`.
+
+### 2. Prepare the CSV
+
+A ready-to-use CSV is shipped at [`./examples/demos/posedriven/posedriven.csv`](./examples/demos/posedriven/posedriven.csv).
+
+### 3. Run batch inference
+
+```bash
+python batch_infer.py \
+    --csv_path ./examples/demos/posedriven/posedriven.csv \
+    --lora_path ./models/CoInteract/checkpoint_pose.safetensors \
+    --output_dir ./output_videos/posedriven \
+    --height 1280 \
+    --width 720 \
+    --cfg_scale 7.0 \
+    --num_clips 3
+```
+
+
+We provide our generated results in [`./output_videos/posedriven`](./output_videos/posedriven) for reference.
+
+## Training
+Please refer to [`./examples/wanvideo/model_training/README.md`](./examples/wanvideo/model_training/README.md) for the end-to-end walkthrough.
 
 ## ✨Highlights
 

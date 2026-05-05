@@ -3,7 +3,7 @@ CoInteract Batch Inference Script
 
 Generate speech-driven human-object interaction videos from a CSV file.
 Each row in the CSV should contain: audio, person_image, prompt columns.
-Optional columns: prompt2, prompt3, product_image, scale.
+Optional columns: prompt2, prompt3, product_image, scale, pose_video.
 """
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -53,7 +53,7 @@ def parse_args():
     parser.add_argument("--height", type=int, default=832)
     parser.add_argument("--width", type=int, default=480)
     parser.add_argument("--num_frames", type=int, default=80,
-                        help="Number of frames per clip (80 frames = 5 seconds at 16fps)")
+                        help="Number of frames per clip (80 frames = 3.24 seconds at 25fps)")
     parser.add_argument("--num_clips", type=int, default=3,
                         help="Number of clips to generate per sample")
     parser.add_argument("--num_inference_steps", type=int, default=40)
@@ -272,6 +272,14 @@ def process_batch(args, pipe):
 
             product_image_scale = float(row.get('scale', 1.0)) if 'scale' in df.columns else 1.0
 
+            # Pose-driven reference video (optional column)
+            pose_video_path = None
+            if 'pose_video' in df.columns:
+                val = row.get('pose_video')
+                if val is not None and pd.notna(val) and str(val).strip():
+                    pose_video_path = (str(val) if os.path.isabs(str(val))
+                                       else os.path.join(args.data_base_path, str(val)))
+
             sample_name = Path(audio_rel).stem
             save_path = os.path.join(args.output_dir, f"{sample_name}.mp4")
 
@@ -297,6 +305,7 @@ def process_batch(args, pipe):
                 product_image=product_image,
                 product_image_scale=product_image_scale,
                 audio_path=audio_path,
+                pose_video_path=pose_video_path,
                 negative_prompt=args.negative_prompt,
                 height=args.height,
                 width=args.width,
